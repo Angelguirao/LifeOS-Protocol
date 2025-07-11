@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LifeEvent",
+  "description": "A standardized event representing a moment in your life",
+  "type": "object",
+  "required": ["timestamp", "source", "type", "title"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event occurred"
+    },
+    "source": {
+      "type": "string",
+      "description": "The application or service that generated this event",
+      "examples": ["spotify", "google", "facebook"]
+    },
+    "type": {
+      "type": "string",
+      "description": "The category and action of this event",
+      "pattern": "^[a-z]+\\.[a-z]+$",
+      "examples": ["music.play", "calendar.meeting", "journal.entry", "fitness.workout"]
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for this event"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Source-specific data about this event",
+      "additionalProperties": true
+    },
+    "linked_uris": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^life://"
+      },
+      "description": "Array of life:// URIs linking to related events"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional tags for categorization and search"
+    },
+    "mood": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Optional mood rating (1-10) associated with this event"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable location name"
+        },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "lng": {
+              "type": "number", 
+              "minimum": -180,
+              "maximum": 180
+            }
+          },
+          "required": ["lat", "lng"]
+        }
+      }
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Duration in seconds (optional)"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this event (auto-generated if not provided)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this event was first recorded"
+    },
+    "updated_at": {
+      "type": "string", 
+      "format": "date-time",
+      "description": "When this event was last modified"
+    }
+  },
+  "examples": [
+    {
+      "timestamp": "2025-07-09T09:00:00Z",
+      "source": "spotify",
+      "type": "music.play",
+      "title": "Pink + White",
+      "metadata": {
+        "artist": "Frank Ocean",
+        "album": "Blonde",
+        "duration": 212,
+        "track_id": "spotify:track:3xKsf9qdS1CyvXSMEid6g8"
+      },
+      "linked_uris": [
+        "life://2025-07-09/journal/entry/midyear-reflection"
+      ],
+      "tags": ["chill", "nostalgic"],
+      "mood": 8
+    },
+    {
+      "timestamp": "2025-07-09T14:30:00Z", 
+      "source": "calendar",
+      "type": "calendar.meeting",
+      "title": "Team Standup",
+      "metadata": {
+        "attendees": ["alice@company.com", "bob@company.com"],
+        "duration": 1800,
+        "calendar_id": "work"
+      },
+      "tags": ["work", "meeting"],
+      "mood": 6
+    }
+  ]
+} 
