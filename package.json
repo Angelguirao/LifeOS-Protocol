@@ -1,0 +1,50 @@
+{
+  "name": "lifeos-protocol",
+  "version": "0.1.0",
+  "description": "The open standard for linking, structuring, and integrating the moments of your life",
+  "main": "uriResolver.js",
+  "exports": {
+    ".": "./uriResolver.js",
+    "./eventTypes": "./eventTypes.js",
+    "./lifeevent.schema.json": "./lifeevent.schema.json"
+  },
+  "scripts": {
+    "test": "node examples/basic-usage.js",
+    "validate": "node validate.js",
+    "validate-schema": "node -e \"const Ajv = require('ajv'); const fs = require('fs'); const schema = JSON.parse(fs.readFileSync('lifeevent.schema.json')); const ajv = new Ajv(); console.log('Schema valid:', ajv.validateSchema(schema));\"",
+    "event-types": "node -e \"const { getAllEventTypesList } = require('./eventTypes'); console.log('Available event types:'); getAllEventTypesList().forEach(type => console.log('  - ' + type));\"",
+    "docs": "node scripts/generate-docs.js"
+  },
+  "keywords": [
+    "life",
+    "protocol",
+    "events",
+    "uri",
+    "schema",
+    "personal-data",
+    "life-events",
+    "interoperability"
+  ],
+  "author": "Angel Guirao",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Angelguirao/LifeOS-Protocol.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Angelguirao/LifeOS-Protocol/issues"
+  },
+  "homepage": "https://github.com/Angelguirao/LifeOS-Protocol#readme",
+  "devDependencies": {
+    "ajv": "^8.12.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "lifeevent.schema.json",
+    "uriResolver.js",
+    "examples/",
+    "docs/"
+  ]
+} 
